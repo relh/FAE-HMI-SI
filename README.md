@@ -51,11 +51,9 @@ Alternatively, you can download ZARRs that contain the full year-long dataset (2
 
 ## Training
 
-`COMING SOON`
-
 1. Run `python train.py`.
 2. Find your new model in `models/`.
-2. Run `python inference.py` but load your own model.
+2. Run `python inference.py` but load your own model in `inference.py`!
 3. Check the `outputs/` folder.
 
 ## Reminder 
