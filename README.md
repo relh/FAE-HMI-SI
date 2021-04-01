@@ -25,21 +25,21 @@ pip install -r requirements.txt
 
 ## Data Preparation 
 
-To use pre-trained models, first should download them (1.2 GB) from dropbox:
+To use pre-trained models, first download them (1.2 GB) from dropbox:
 
 ```
 wget https://www.dropbox.com/s/x4lrx2npy4zv403/models.zip
 unzip models.zip
 ```
 
-Once you have models, download an example `(28, 4096, 4096)` input tensor (1.8 GB) to run them on:
+Once you have models downloaded/trained, fetch an example `(28, 4096, 4096)` input tensor (1.8 GB) to run them on:
 
 ```
 wget https://www.dropbox.com/s/3itmkqcal4u0otl/inputs.zip
 unzip inputs.zip
 ```
 
-Alternatively, you can download the ZARRs that contain the full year-long dataset (250+ GB each)
+Alternatively, you can download ZARRs that contain the full year-long dataset (250+ GB each)
 
 `COMING SOON`
 
