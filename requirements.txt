@@ -1,0 +1,9 @@
+numpy
+torchvision
+zarr
+matplotlib
+tqdm
+astropy
+sunpy
+imageio
+opencv-python

@@ -1,0 +1,40 @@
+#ex1Slider .slider-selection {
+	background: #BABABA;
+}
+
+.slider.slider-horizontal{
+  width:50%; /* sample value - set it as you like*/
+}
+
+.slider.slider-vertical{
+  height:500px; /* sample value - set it as you like*/
+}
+
+.parent {
+  position: relative;
+  top: 0;
+  left: 0;
+pointer-events: auto;
+}
+
+.image1 {
+  position: relative;
+  top: 0;
+  left: 0;
+pointer-events: auto;
+}
+.image2 {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+pointer-events: auto;
+} 
+
+body, input, select, label, p, li, button {
+        font-size: 24px;
+}
+
+.tooltip-inner {
+	font-size: 200% !important;
+	margin-top: -10%;
+}
