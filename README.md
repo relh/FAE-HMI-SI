@@ -3,7 +3,7 @@
 
 Welcome to FAE-HMI-SI! 
 
-This is code for the paper [Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification](http://arxiv.org), 
+This is code for the paper [Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification](https://arxiv.org/abs/2103.17273), 
 accepted for publication in the [Astrophysical Journal](https://iopscience.iop.org/journal/0004-637X).
 
 We train a UNet to map a 28-dimensional signal of polarized light (4 polarizations at 6 bandpasses + metadata) into a magnetic field vector,
