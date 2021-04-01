@@ -8,6 +8,7 @@ accepted for publication in the [Astrophysical Journal](https://iopscience.iop.o
 
 We train a UNet to map a 28-dimensional signal of polarized light (4 polarizations at 6 bandpasses + metadata) into a magnetic field vector,
 representing the strength and direction of the magnetic field on the surface of the sun.
+
 **To learn more, checkout the [interactive project website](https://relh.github.io/FAE-HMI-SI/):**
 
 <p align="center">
@@ -32,7 +33,7 @@ wget https://www.dropbox.com/s/x4lrx2npy4zv403/models.zip
 unzip models.zip
 ```
 
-Once you have models downloaded/trained, fetch an example `(28, 4096, 4096)` input tensor (1.8 GB) to run them on:
+Once you have models downloaded/trained, fetch an example `(28, 4096, 4096)` input tensor (1.8 GB) and run it:
 
 ```
 wget https://www.dropbox.com/s/3itmkqcal4u0otl/inputs.zip
