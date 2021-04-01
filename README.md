@@ -12,7 +12,7 @@ representing the strength and direction of the magnetic field on the surface of 
 **To learn more, checkout the [interactive project website](https://relh.github.io/FAE-HMI-SI/):**
 
 <p align="center">
-<img src="./website/assets/website_screengrab_2.png" alt="project website screengrab" width="600"/>
+<img src="./website/assets/website_screengrab_2.png" alt="project website screengrab" width="500"/>
 </p>
 
 ## Installation 

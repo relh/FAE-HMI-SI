@@ -11,7 +11,7 @@
           gtag('config', 'G-BRRPLWVZCV');
         </script>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <title>Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</title>
+    <title>FAE-HMI-SI</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Jquery -->
@@ -62,7 +62,7 @@
         
       <br>
       <div class="container">
-        <p><i><b>Introduction.</b></i> Our paper presents a neural network trained to estimate the parameters of the magnetic field of the sun. It learns to predict parameters describing
+        <p><i><b>Introduction.</b></i> Our paper presents a neural network trained to estimate the sun's magnetic field. It learns to predict parameters describing
         the magnetic field of the sun at the <a href='https://en.wikipedia.org/wiki/Photosphere'>photosphere</a> using polarized light measurements 
         (I, Q, U, and V) captured at 6 wavelengths by the <a href='http://hmi.stanford.edu/'>Helioseismic and Magnetic Imager</a> (HMI) onboard the 
           <a href='https://en.wikipedia.org/wiki/Solar_Dynamics_Observatory'>Solar Dynamics Observatory</a> (<i>SDO</i>).
@@ -70,7 +70,7 @@
         <p>
         Our system is trained to emulate an existing system, the Very Fast Inversion of the Stokes Vector (VFISV). This inversion code depends on a forward
         model, known as the Milne-Eddington model, which maps parameters describing the sun's photosphere to expected observations
-        of the polarized light IQUV. Due to the <a href='https://en.wikipedia.org/wiki/Zeeman_effect'>Zeeman Effect</a>,
+        of polarized light, as IQUVs. Due to the <a href='https://en.wikipedia.org/wiki/Zeeman_effect'>Zeeman Effect</a>,
         the magnetic field influences the wavelengths that one expects to see. VFISV aims to invert this forward model by finding
         parameters that the forward model thinks would match the actual observations at each pixel. This takes ~30 minutes per disk, since
         it requires solving millions of optimization problems.
@@ -79,7 +79,7 @@
         Our system is trained to emulate this mapping, and converts IQUV
         observations to magnetic field outputs. In particular, the system 
         aims to predict eight targets (described on this page). 
-        Look at the four targets and predictions below and see if you can tell the difference!
+        Look at the four targets and predictions below to see if you can tell the difference between them!
         </p>
       </div>
       <br>
@@ -122,12 +122,8 @@
       <div class="container">
         <div class="border-top my-5" style="width: 100%;"></div>
         <br>
-        <p><i><b>Meet the Targets.</b></i> Now that you've seen some examples, lets talk about what these parameters are. The values
-        for these parameters (plus others that are held constant for <i>SDO</i>/HMI) define the polarized
-        light we expect to see.
-
-        You can see them below
-          if you click the play button or move the slider.
+        <p><i><b>Meet the Targets.</b></i> Now that you've seen some examples, lets talk more about what these parameters are. Cumulatively, the values
+        for these parameters (plus others that are held constant for <i>SDO</i>/HMI) define the polarized light we expect to see.
         </p>
         <ul>
           <li>Field (Mx/cm<sup>2</sup>) &mdash; the strength of the magnetic field</li>
@@ -139,9 +135,10 @@
           <li>S<sub>0</sub> (Data Number/s) &mdash; a thermodynamic parameter.</li>
           <li>S<sub>1</sub> (Data Number/s) &mdash; a thermodynamic parameter.</li>
         </ul>
-        <p>You can see these parameters below across the disk, with both predictions and VFISV outputs. Data that our network has not seen (a dataset we call <b>2016-all</b>). 
-        is available for all eight targets at the click of the play button or drag of a slider.
-		See if you can learn to identify differences between the ground truth and predicted images! 
+        <p>
+        You can see these parameters below across the full disk, with both predictions and VFISV outputs. Data that our network has not seen (a dataset we call <b>2016-all</b>). 
+        is available for all eight targets at the <b>click of the play button</b> or <b>drag of a slider</b>.
+        See if you can learn to identify differences between the ground truth and predicted images! 
         </p>
       </div>
 
@@ -191,15 +188,10 @@
         <br>
       </div>
       <div class="container">
-        <p><i><b>Spot the difference! </b></i> Solar disks for the entirety of 2016 are loaded into the below web-viewer, but the labels got shuffled by a cosmic ray 
-          and I am an overloaded researcher with no time! Can I recruit you to figure out which one is which? Mouse-over the blue solar disk below to see
-          zoomed-in panels on the left and right side. For each timestamp, one is <u>our system's predictions</u> and the other is <u>VFISV output</u>. If you figure out which is which, please send me an
+        <p><i><b>Spot the difference! </b></i> Solar disks for the entirety of 2016 are loaded into the below web-viewer, but the labels got shuffled by a cosmic ray.
+          I am an overloaded researcher with no time! I need you to figure out which one is which! Mouse-over the blue solar disk below to see
+          zoom-in panels on the left and right side. For each timestamp, one is <u>our system's predictions</u> and the other is <u>VFISV output</u>. If you figure out which is which, please send me an
           email at <a href = "mailto: relh@umich.edu">relh@umich.edu</a>! In the meantime I'll be in the lab running more experiments. 
-      </div>
-      <div class="container">
-        Overall, I'm happy that the predictions and VFISV images look so similar. Drag the slider to change the date, and click on the eight different targets to change what the viewer is looking at.
-        There are a few key tells -- see if you can figure out what they are!
-        </p>
       </div>
       <br>
       <br>
@@ -214,6 +206,13 @@
           <label onclick="radioClick(this, false)" class="btn btn-secondary"><input type="radio" name="options" id="src_continuum" autocomplete="off"> S<sub>0</sub></label>
           <label onclick="radioClick(this, false)" class="btn btn-secondary"><input type="radio" name="options" id="src_grad" autocomplete="off"> S<sub>1</sub> </label>
         </div>
+      </div>
+      <br>
+      <br>
+      <div class="container">
+        Overall, I'm happy that the predictions and VFISV images look so similar. Drag the slider to change the date, and click on the eight different targets to change what the viewer is looking at.
+        There are a few key tells -- see if you can figure out what they are!
+        </p>
       </div>
       <br>
       <br>
@@ -331,12 +330,13 @@
       <!-- input id="ex5" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical" -->
       <div class="container">
         <div class="border-top my-5" style="width: 100%;"></div>
-        <p><i><b>Applications.</b></i> We hope to use this system both as a fast "quick-look" version of VFISV and as a tool for troubleshooting some of the artifacts seen
-          in VFISV's output. For example, there appears to be a 24-hour periodic tendency in the average of Sun's magnetic field strength over the entire disk. However, this is suspicious since the sun probably doesn't
-          have 24-hour periodicity, but our satellite observing it definitely has!
+        <p><i><b>Applications.</b></i> We hope to use this system both as a fast "quick-look" version of VFISV and as a tool for troubleshooting artifacts seen in VFISV's output.
+        For example, there appears to be a 24-hour, periodic tendency affecting in the average of Sun's magnetic field strength over the entire disk.
+        However, this is suspicious since the sun probably doesn't have 24-hour periodicity, but our satellite observing it definitely has!
         </p>
         <p>
-        Here images taken every hour for the two weeks of February are shown, alongside the graph tracking the average field strength of the result of VFISV and the proposed emulation. Each of these images corresponds to a point on the graph! Since our system can produce full disks in a matter of seconds, it's promising that the above strange 24 hour oscillation could be resolved by inverting lots of data quickly.
+        Here images taken every hour for the two weeks of February are shown, alongside a graph tracking the average field strength of the result of VFISV and our emulation. Each of these images corresponds to a point on the graph!
+        Since our system can produce full disks in a matter of seconds, it's promising that the above strange 24 hour oscillation could be addressed by inverting lots of data quickly and looking closely.
         </p>
 
         <br/>
@@ -383,7 +383,7 @@
     <p><i><b>Some Lessons Learned.</b></i>
     In many problems using Internet images, the inputs are unitless since the images
     are the result of enormous amounts of post-processing. In our problem, the absolute values
-    of the units is crucial and so standard techniques that apply normalization per input
+    of the units are crucial and so standard techniques that apply normalization per input
     (e.g., Batch-Norm) destroy this information.  
     </p>
     <p>
@@ -438,11 +438,12 @@
       <div class="container">
         <div class="container"><div class="border-top my-5" style="width: 100%;"></div><br></div>
 
-        <p><i><b>Quantitative Results.</b></i> Although the above comparisons give one a good understanding of qualitative performance, we need to evaluate overall performance
+        <p><i><b>Quantitative Results.</b></i>
+        Although the above comparisons give one an alright understanding of qualitative performance, we need to evaluate performance
 	across various regions of interest on the solar disk.</p>
-	<p>As such, we create masks for every image that represent all on-disk pixels (<b>Disk</b>), plage pixels (<b>Plage</b>), active region pixels (<b>AR</b>), and pixels with at least 100 Mx/cm<sup>2</sup> in the absolute value line of sight (<b>100+</b>).</p>
-	<p>Evaluation is conducted using the Mean Absolute Error (MAE) and percent of pixels within t. Values for t are target specific and are generated by scaling according to
-	the relative variances. We find that the model reproduces the VFISV output with a high degree of fidelity.</p>
+	<p>As such, we create a series of masks for every image. These masks cover all on-disk pixels (<b>Disk</b>), plage pixels (<b>Plage</b>), active region pixels (<b>AR</b>), and pixels with at least 100 Mx/cm<sup>2</sup> in the absolute value of the plasma velocity in the line of sight (<b>100+</b>).</p>
+        <p>Evaluation is conducted using the Mean Absolute Error (MAE) and percent of pixels within <i>t</i>. Values for <i>t</i> are target specific and are generated by scaling according to
+	the relative variances. We find that the model reproduces the VFISV output to a high degree of fidelity.</p>
         </p>
       </div>
       <div class="container d-flex justify-content-center m-4">
@@ -453,7 +454,9 @@
       <br/>
         <div class="container"><div class="border-top my-5" style="width: 100%;"></div><br></div>
         <p><i><b>Conclusions.</b></i> In summary, we have presented in this paper a deep-learning approach for fast and accurate emulation of the HMI pipeline Stokes inversion module.
-          While our approach provides a more efficient way to produce existing information and does not produce new scientific models, it provides a first step towards advances like correcting hemispheric bias in HMI data, removing oscillation artifacts in HMI magnetograms, and extending solar magnetic field measurements with other observation modalities. In these cases, the prospect of correcting errors or making predictions without a corresponding detailed physical model has the potential to dramatically enhance a mission’s scientific value for solar and space research. Seen from this viewpoint, our ability to rapidly emulate the current pipeline is only a beginning. 
+          While our approach provides a more efficient way to produce existing information and does not produce new scientific models, it provides a first step towards advances like correcting hemispheric bias in HMI data, removing oscillation artifacts in HMI magnetograms, and extending solar magnetic field measurements with other observation modalities.
+          In these cases, the prospect of correcting errors or making predictions without a corresponding detailed physical model has the potential to dramatically enhance a mission’s scientific value for solar and space research.
+          Seen from this viewpoint, our ability to rapidly emulate the current pipeline is only a beginning. 
         </p>
         <br>
       </div>
