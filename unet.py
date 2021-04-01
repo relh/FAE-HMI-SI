@@ -4,6 +4,8 @@ import torch.nn.functional as F
 from torch import nn as nn
 
 # --- UNet --- #
+# credit to https://github.com/milesial/Pytorch-UNet for the unet implementation
+
 class UNet(nn.Module):
     def __init__(self, in_channels, out_im_channels, batchnorm, dropout=0.3, regression=False, bins=80, bc=64):
         super(UNet, self).__init__()
@@ -20,7 +22,6 @@ class UNet(nn.Module):
         self.outc = outconv(bc*2, out_im_channels, regression, bins)
 
     def forward(self, x):
-        #x0 = x
         x1 = self.inc(x)
         x2 = self.down1(x1)
         x3 = self.down2(x2)
@@ -98,6 +99,7 @@ class up(nn.Module):
             self.up = nn.Sequential(
                 nn.Upsample(scale_factor=2, mode='bilinear'),
                 nn.ReflectionPad2d(1),
+                # note the interesting size and stride
                 nn.Conv2d(in_ch // 2, in_ch // 2, kernel_size=2, stride=2, padding=0),
             )
         elif method == 'none':

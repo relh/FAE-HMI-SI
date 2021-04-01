@@ -64,3 +64,7 @@ Remember, the [project website](https://relh.github.io/FAE-HMI-SI/) has detailed
 <p align="center">
 <img src="./website/assets/website_screengrab.png" alt="reminder project website screengrab" width="600"/>
 </p>
+
+Credit to [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet) for the great pytorch unet implementation!
+
+Credit to [js-image-zoom](https://github.com/malaman/js-image-zoom) for the great image zoom tool on the project website.
