@@ -1,14 +1,16 @@
 import argparse
+import sys
+import time
 
 import numpy as np
 import torch
 import torch.optim as optim
 from torch.optim.lr_scheduler import LambdaLR, ReduceLROnPlateau
 from torch.utils.data import DataLoader, Subset, SubsetRandomSampler
+from tqdm import tqdm
 
-from util import load, run_epoch
-
-### WORK IN PROGRESS GETTING ZARRS UPLOADED ###
+from hmi import HMI_Dataset
+from unet import UNet
 
 p = argparse.ArgumentParser()
 # Choose which magnetic field parameter to predict
@@ -41,7 +43,7 @@ rlrop = ReduceLROnPlateau(optimizer, 'min', patience=2, factor=0.5)
 bins = 80
 epoch_len = 2500
 
-def run_epoch(data_loader, net, optimizer, rlrop, epoch, target, is_train=True):
+def run_epoch(data_loader, net, optimizer, rlrop, epoch, is_train=True):
     start = time.time()
     losses = 0
 
@@ -55,7 +57,7 @@ def run_epoch(data_loader, net, optimizer, rlrop, epoch, target, is_train=True):
 
         # =============== classification target =====================
         class_target = batch['Y']
-        if 'vlos_mag' in target: class_target += 700000.0
+        if 'vlos_mag' in args.target: class_target += 700000.0
         class_target = (class_target * ((bins-1) / train_dataset.max_divisor)).clamp(0, bins-1)
         mod_shape = list(class_target.shape) + [bins]
 
@@ -68,7 +70,7 @@ def run_epoch(data_loader, net, optimizer, rlrop, epoch, target, is_train=True):
         plus1 = (floored + 1).clamp(0, bins-1) # the next bin, but clamping to avoid oob
         class_target = class_target - floored       # how much weight you want
 
-        # TODO scatter both and multiply
+        # scatter both and multiply
         floored = (class_zeros.scatter_(4, floored.long(), class_ones) * (1.0-class_target)).view(-1, 1, bins)
         plus1 = (class_zeros1.scatter_(4, plus1.long(), class_ones) * class_target).view(-1, 1, bins)
         class_target = (floored + plus1) + 1e-4
@@ -80,7 +82,7 @@ def run_epoch(data_loader, net, optimizer, rlrop, epoch, target, is_train=True):
         # ================== forward + losses =======================
         optimizer.zero_grad()
 
-        pred = net(im_inp.to(device))
+        pred = net(im_inp.to(args.device))
 
         pred = torch.nn.functional.log_softmax(pred, dim=1)
         pred = pred.reshape(1, bins, -1).permute(0,2,1).reshape(-1, bins)[field_mask > 0.7]
@@ -103,7 +105,7 @@ def run_epoch(data_loader, net, optimizer, rlrop, epoch, target, is_train=True):
                   time.time() - start)) # batch time
 
         # ================== termination ====================
-        if epoch_len != None and epoch_len > 0 and i > (epoch_len / data_loader.batch_size): break
+        if i > (epoch_len / data_loader.batch_size): break
 
     avg_loss = losses / (i+1)
     if not is_train:
