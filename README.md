@@ -70,9 +70,9 @@ Remember, the [project website](https://relh.github.io/FAE-HMI-SI/) has detailed
 
 This work was supported by a NASA Heliophysics DRIVE Science Center (SOLSTICE) at the University of Michigan under grant NASA 80NSSC20K0600 and a Michigan Institute for Data Science Propelling Original Data Science grant.  GB and KDL also acknowledge NASA/GSFC grant 80NSSC19K0317.  All data used in this study are available from the Joint Science Operations Center (JSOC) at Stanford University, see http://jsoc.stanford.edu/.
 
-<br><img src='./website/assets/nasa-logo-web-rgb.png' width="49%">
-<img src='./website/assets/MIDASsignature-acronym-white.png' width="49%">
-
 Credit to [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet) for the great pytorch unet implementation!
 
 Credit to [js-image-zoom](https://github.com/malaman/js-image-zoom) for the great image zoom tool on the project website.
+
+<br><img src='./website/assets/nasa-logo-web-rgb.png' width="49%">
+<img src='./website/assets/MIDASsignature-acronym-white.png' width="49%">
