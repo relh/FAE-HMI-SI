@@ -9,9 +9,9 @@ accepted for publication in the [Astrophysical Journal](https://iopscience.iop.o
 We train a UNet to map a 28-dimensional signal of polarized light (4 polarizations at 6 bandpasses + metadata) into a magnetic field vector,
 representing the strength and direction of the magnetic field on the surface of the sun.
 
-**To learn more, checkout the [interactive project website](https://relh.github.io/FAE-HMI-SI/),
-my [talk at COSPAR2021, Workshop on ML for Space Sciences](https://www.youtube.com/watch?v=cEKR05TyDjg&list=PLJ6DM-dKMZKe1espIcO89lfO0ABtIaLMG&index=14),
-or our [poster at AGU 2020, ML in Space Weather](https://agu.confex.com/agu/fm20/meetingapp.cgi/Paper/684287).**
+To learn more, watch my [talk at the COSPAR2021 Workshop on ML for Space Sciences](https://www.youtube.com/watch?v=cEKR05TyDjg&list=PLJ6DM-dKMZKe1espIcO89lfO0ABtIaLMG&index=14),
+see our [poster at the AGU 2020 ML in Space Weather session](https://agu.confex.com/agu/fm20/meetingapp.cgi/Paper/684287), 
+or **checkout the [interactive project website](https://relh.github.io/FAE-HMI-SI/):**
 
 <p align="center">
 <img src="./website/assets/website_screengrab_2.png" alt="project website screengrab" width="500"/>
