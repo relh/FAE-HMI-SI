@@ -21,8 +21,8 @@ p.add_argument('--device', default='cuda:0', type=str, help='cuda GPU to run the
 args = p.parse_args()
 
 # Load ZARRs containing data
-train_dataset = HMI_Dataset('./inputs/HMIFull_ZARR/', x_labels=['contin', 'meta', 'iquv'], y_labels=[args.target])
-test_dataset = HMI_Dataset('./inputs/HMI2016_ZARR2/', x_labels=['contin', 'meta', 'iquv'], y_labels=[args.target])
+train_dataset = HMI_Dataset('./HMIFull_ZARR/', x_labels=['contin', 'meta', 'iquv'], y_labels=[args.target])
+test_dataset = HMI_Dataset('./HMI2016_ZARR2/', x_labels=['contin', 'meta', 'iquv'], y_labels=[args.target])
 
 # Specify an arbitrary division of the data, first 3/5 training, next 1/5 validation.
 # These ranges are sequentially assigned due to test data occuring subsequently. 
