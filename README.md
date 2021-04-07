@@ -35,28 +35,31 @@ wget https://www.dropbox.com/s/x4lrx2npy4zv403/models.zip
 unzip models.zip
 ```
 
-Once you have models downloaded/trained, fetch an example `(28, 4096, 4096)` input tensor (1.8 GB) and run it:
+## Inference
+
+Once you have models downloaded/trained, fetch an example `(28, 4096, 4096)` input tensor (1.8 GB):
 
 ```
 wget https://www.dropbox.com/s/3itmkqcal4u0otl/inputs.zip
 unzip inputs.zip
 ```
 
-Alternatively, you can download ZARRs that contain the full year-long dataset (250+ GB each)
-
-`COMING SOON`
-
-## Inference
-
-1. Run `python inference.py`.
-2. Check the `outputs/` folder.
+Then run `python inference.py` and check the `outputs/` folder.
 
 ## Training
 
-1. Run `python train.py`.
-2. Find your new model in `models/`.
-2. Run `python inference.py` but load your own model in `inference.py`!
-3. Check the `outputs/` folder.
+Alternatively, you can download ZARRs that contain the full year-long dataset (250+ GB each) and then train models and run inference yourself:
+
+```
+wget https://www.dropbox.com/s/mhfta8mqqtni8fi/HMIFull_ZARR.tar
+wget https://www.dropbox.com/s/417a3y9zmz1svy7/HMI2016_ZARR2.tar
+tar -xvf HMIFull_ZARR.tar
+tar -xvf HMI2016_ZARR2.tar
+```
+
+Then run `python train.py`, wait ~1 day or so, and then find your new model in `models/`.
+Once trained, you need to change `inference.py` so that the `saved_network_state` points to your new model..
+After running `python inference.py`, check the `outputs/` folder!
 
 ## Reminder 
 
