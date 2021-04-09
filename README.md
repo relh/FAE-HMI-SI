@@ -77,5 +77,6 @@ Credit to [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet) for the great
 
 Credit to [js-image-zoom](https://github.com/malaman/js-image-zoom) for the great image zoom tool on the project website.
 
-<br><img src='./website/assets/nasa-logo-web-rgb.png' width="49%">
-<img src='./website/assets/MIDASsignature-acronym-white.png' width="49%">
+<br><img src='./website/assets/solstice.png' width="32%">
+<img src='./website/assets/nasa-logo-web-rgb.png' width="32%">
+<img src='./website/assets/MIDASsignature-acronym-white.png' width="32%">
