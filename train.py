@@ -15,14 +15,16 @@ from unet import UNet
 p = argparse.ArgumentParser()
 # Choose which magnetic field parameter to predict
 p.add_argument('--target', default='field', type=str, help='target field/inclinaiton/azimuth/vlos_mag/eta_0/src_grad/src_continuum')
+p.add_argument('--norotate', dest='norotate', action='store_true', help='whether to train unrotated model')
 
 # Specify GPU to load network to and run image on
 p.add_argument('--device', default='cuda:0', type=str, help='cuda GPU to run the network on')
 args = p.parse_args()
 
 # Load ZARRs containing data
-train_dataset = HMI_Dataset('./HMIFull_ZARR/', x_labels=['contin', 'meta', 'iquv'], y_labels=[args.target])
-test_dataset = HMI_Dataset('./HMI2016_ZARR2/', x_labels=['contin', 'meta', 'iquv'], y_labels=[args.target])
+x_labels = ['contin'] + (['meta'] if not args.norotate else []) + ['iquv']
+train_dataset = HMI_Dataset('./HMIFull_ZARR/', x_labels=x_labels, y_labels=[args.target])
+test_dataset = HMI_Dataset('./HMI2016_ZARR2/', x_labels=x_labels, y_labels=[args.target])
 
 # Specify an arbitrary division of the data, first 3/5 training, next 1/5 validation.
 # These ranges are sequentially assigned due to test data occuring subsequently. 
@@ -35,7 +37,7 @@ val_loader = DataLoader(train_dataset, batch_size=1, sampler=SubsetRandomSampler
 test_loader = DataLoader(test_dataset, batch_size=1, num_workers=1, pin_memory=False)
 
 # Create model and initialize optimizers
-net = UNet(28, 1, batchnorm=False, dropout=0.3, regression=False, bins=80, bc=64).to(args.device)
+net = UNet(25 if args.norotate else 28, 1, batchnorm=False, dropout=0.3, regression=False, bins=80, bc=64).to(args.device)
 optimizer = optim.AdamW(net.parameters(), lr=1e-4, weight_decay=1e-4, eps=1e-3)#, betas=(0.5, 0.999))
 rlrop = ReduceLROnPlateau(optimizer, 'min', patience=2, factor=0.5)
 

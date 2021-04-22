@@ -26,13 +26,17 @@ conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
 pip install -r requirements.txt
 ```
 
-## Data Preparation 
+## Download Pre-trained Models 
 
-To use pre-trained models, first download them (1.2 GB) from dropbox:
+To use pre-trained models, first download them (1.2 GB) from dropbox.
+You can either download the full models that use 28-dimensional input, or models that were trained with IQUVs+Continuum on unrotated input:
 
 ```
 wget https://www.dropbox.com/s/x4lrx2npy4zv403/models.zip
 unzip models.zip
+
+wget https://www.dropbox.com/s/ziyw7tt9v8orh63/models_norotate.zip
+unzip models_norotate.zip
 ```
 
 ## Inference
@@ -51,10 +55,10 @@ Then run `python inference.py` and check the `outputs/` folder.
 Alternatively, you can download ZARRs that contain the full year-long dataset (250+ GB each) and then train models and run inference yourself:
 
 ```
-wget https://www.dropbox.com/s/mhfta8mqqtni8fi/HMIFull_ZARR.tar
-wget https://www.dropbox.com/s/417a3y9zmz1svy7/HMI2016_ZARR2.tar
-tar -xvf HMIFull_ZARR.tar
-tar -xvf HMI2016_ZARR2.tar
+wget https://www.dropbox.com/s/mhfta8mqqtni8fi/HMI2015_ZARR.tar
+wget https://www.dropbox.com/s/417a3y9zmz1svy7/HMI2016_ZARR.tar
+tar -xvf HMI2015_ZARR.tar
+tar -xvf HMI2016_ZARR.tar
 ```
 
 Then run `python train.py`, wait ~1 day or so, and then find your new model in `models/`.
