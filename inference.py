@@ -13,7 +13,7 @@ from util import bins_to_output, full_disk_to_tiles, tiles_to_full_disk
 p = argparse.ArgumentParser()
 
 # Specify either a file (default) or an index in the test ZARR to load input
-p.add_argument('--file', default='./inputs/input_iquv.npy', type=str, help='IQUV input file')
+p.add_argument('--file', default='./inputs/input_iquv.pkl', type=str, help='IQUV input file')
 p.add_argument('--index', default=-1, type=int, help='ZARR IQUV input index')
 
 # Choose which magnetic field parameter to predict
@@ -33,8 +33,17 @@ if args.norotate: saved_network_state = torch.load(f'./models_norotate/{args.tar
 else:             saved_network_state = torch.load(f'./models/{args.target}_model.pth')
 net.load_state_dict(saved_network_state['model'])
 net.eval()
-
 x_labels = ['contin'] + (['meta'] if not args.norotate else []) + ['iquv']
+
+# Specify target maximum divisor
+if 'field' in args.target:           max_divisor = 5000.0
+elif 'inclination' in args.target:   max_divisor = 180.0
+elif 'azimuth' in args.target:       max_divisor = 180.0
+elif 'vlos_mag' in args.target:      max_divisor = 700000.0 + 700000.0 # includes negative values
+elif 'dop_width' in args.target:     max_divisor = 60.0
+elif 'eta_0' in args.target:         max_divisor = 50.0
+elif 'src_continuum' in args.target: max_divisor = 29060.61
+elif 'src_grad' in args.target:      max_divisor = 52695.32
 
 # Use an input file as default, otherwise use an index in the ZARR if provided
 if args.index == -1:
@@ -57,8 +66,8 @@ else:
 # Run network on all 16 tiles
 outputs = []
 for tile in input_tiles:
-    pred = net(tile.to(args.device))
-    pred = bins_to_output(pred, test_dataset.max_divisor)
+    pred = net(tile.unsqueeze(0).to(args.device))
+    pred = bins_to_output(pred, max_divisor)
     outputs.append(pred)
 
 # Save the full disk after running across the whole thing.

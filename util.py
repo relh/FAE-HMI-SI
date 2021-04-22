@@ -1,4 +1,5 @@
 import torch
+import pdb
 
 
 def full_disk_to_tiles(full_disk):
@@ -6,7 +7,7 @@ def full_disk_to_tiles(full_disk):
     for sub_i in range(16):
         x = sub_i // 4
         y = sub_i % 4
-        tiles.append(full_disk[x*1024:(x+1)*1024, y*1024:(y+1)*1024])
+        tiles.append(full_disk[:, x*1024:(x+1)*1024, y*1024:(y+1)*1024])
     return tiles
 
 def tiles_to_full_disk(tiles):
