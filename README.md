@@ -35,7 +35,7 @@ You can either download the full models that use 28-dimensional input, or models
 wget https://www.dropbox.com/s/x4lrx2npy4zv403/models.zip
 unzip models.zip
 
-wget https://www.dropbox.com/s/ziyw7tt9v8orh63/models_norotate.zip
+wget https://www.dropbox.com/s/fseqojcw7pkupn5/models_norotate.zip
 unzip models_norotate.zip
 ```
 
