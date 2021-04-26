@@ -55,10 +55,14 @@ Then run `python inference.py` and check the `outputs/` folder.
 Alternatively, you can download ZARRs that contain the full year-long dataset (250+ GB each) and then train models and run inference yourself:
 
 ```
-wget https://www.dropbox.com/s/mhfta8mqqtni8fi/HMI2015_ZARR.tar
-wget https://www.dropbox.com/s/417a3y9zmz1svy7/HMI2016_ZARR.tar
+wget https://www.dropbox.com/s/uq3r6o36r6lrngm/HMI2015_ZARR.tar
+wget https://www.dropbox.com/s/chukk9ewbskuan7/HMI2016_ZARR.tar
 tar -xvf HMI2015_ZARR.tar
 tar -xvf HMI2016_ZARR.tar
+
+# This dataset is for unrotated IQUVs + Continuum
+wget https://www.dropbox.com/s/oqv0dc3olphy35v/HMI2015_NoRotate_ZARR.tar
+tar -xvf HMI2015_NoRotate_ZARR.tar
 ```
 
 Then run `python train.py`, wait ~1 day or so, and then find your new model in `models/`.
