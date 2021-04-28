@@ -1,6 +1,9 @@
 inputs/
+inputs.zip
 outputs/
 models/
 models.zip
+models_norotate/
+models_norotate.zip
 __pycache__/
 
