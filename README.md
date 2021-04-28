@@ -48,7 +48,7 @@ wget https://www.dropbox.com/s/3itmkqcal4u0otl/inputs.zip
 unzip inputs.zip
 ```
 
-Then run `python inference.py` and check the `outputs/` folder.
+Then run `python inference.py` with optional `--norotate` flag and check the `outputs/` folder.
 
 ## Training
 

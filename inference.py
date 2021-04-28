@@ -27,11 +27,13 @@ args = p.parse_args()
 # Initialize network 
 torch.set_grad_enabled(False)
 net = UNet(25 if args.norotate else 28, 1, batchnorm=False, dropout=0.3, regression=False, bins=80, bc=64).to(args.device)
+print('initialized UNet')
 
 # Load either normal model, unrotated model, or model from saved weights
 if args.norotate: saved_network_state = torch.load(f'./models_norotate/{args.target}_model_norotate.pth')
 else:             saved_network_state = torch.load(f'./models/{args.target}_model.pth')
 net.load_state_dict(saved_network_state['model'])
+print(f'loaded model... {args.target}')
 net.eval()
 x_labels = ['contin'] + (['meta'] if not args.norotate else []) + ['iquv']
 
@@ -44,20 +46,21 @@ elif 'dop_width' in args.target:     max_divisor = 60.0
 elif 'eta_0' in args.target:         max_divisor = 50.0
 elif 'src_continuum' in args.target: max_divisor = 29060.61
 elif 'src_grad' in args.target:      max_divisor = 52695.32
+print(f'setting max divisor... {max_divisor}')
 
 # Use an input file as default, otherwise use an index in the ZARR if provided
 if args.index == -1:
     input_data = torch.load(args.file)
-    print(input_data.shape)
 
     if args.norotate:
-        input_data = torch.cat(input_data[0], input_data[4:])
-        print(input_data.shape)
+        input_data = torch.cat((input_data[:1], input_data[4:]))
+        print(f'using no rotate... input data is {input_data.shape}')
+    else:
+        print(f'using full model... input data is {input_data.shape}')
 
     input_tiles = full_disk_to_tiles(input_data)
 else:
-    train_dataset = HMI_Dataset('./inputs/HMIFull_ZARR/', x_labels=x_labels, y_labels=[args.target], bins=80)
-    test_dataset = HMI_Dataset('./inputs/HMI2016_ZARR2/', x_labels=x_labels, y_labels=[args.target], bins=80)
+    test_dataset = HMI_Dataset('./HMI2015_NoRotate_ZARR/' if args.norotate else './HMI2016_ZARR/', x_labels=x_labels, y_labels=[args.target], bins=80)
 
     input_tiles = []
     for i in range(16):
@@ -65,12 +68,14 @@ else:
 
 # Run network on all 16 tiles
 outputs = []
-for tile in input_tiles:
+for i, tile in enumerate(input_tiles):
+    print(f'running network... tile {i}')
     pred = net(tile.unsqueeze(0).to(args.device))
     pred = bins_to_output(pred, max_divisor)
     outputs.append(pred)
 
 # Save the full disk after running across the whole thing.
+print(f'saving output... ./outputs/{args.target}_{args.index}.png')
 output = tiles_to_full_disk(outputs).cpu().numpy()
 
 with open(f'./outputs/{args.target}_{args.index}.npy', 'wb') as f:
